@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category as modelCategory;
 use Exception;
 use Illuminate\Http\Request;
@@ -38,16 +39,20 @@ class Category extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(modelCategory::rules(),[
+            'required' => 'this field (:attribute) is required',
+            'unique' => 'this is name already exist'
+        ]);
+
+            // name.'required' => 'this field (:attribute) is required',
+            // name.'unique' => 'this is name already exist'
+            // if i did this i will apply it just to name field 
         $request->merge([
             'slug' => Str::slug($request->post('name'))
         ]);
         $data = $request->except('image');
         $data['image'] = $this->uploadImage($request);
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $file->store('upload','public');
-            $data['image']=$path;
-        }
+       
     $category = modelCategory::create($data);
     return Redirect::route('dashboard.categories.index')->with('success','Category added Successfully');
     }
@@ -86,19 +91,20 @@ class Category extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryRequest $request, string $id)
     {
-    
             $category= modelCategory::findOrFail($id);
             $old_image = $category->image;
             $data = $request->except('image');
-            $data['image'] = $this->uploadImage($request);
+            $new_image = $this->uploadImage($request);
+            if($new_image){
+                $data['image'] = $new_image;
+
+            }
 
          
-  
             $category->update($data);
-            // dd($old_image,isset($data['image']));
-        if ($old_image && $data['image']) {
+        if ($old_image && $new_image) {
             Storage::disk('public')->delete($old_image);
         }
         return redirect()->route('dashboard.categories.index')->with('success','Category updated');
