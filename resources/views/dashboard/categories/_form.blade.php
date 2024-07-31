@@ -1,16 +1,6 @@
 <div class="form-group">
-    <label for="">
-        Category Name
-    </label>
-    <input @class([ 'form-control' , 'is-invalid'=> $errors->has('name')]) type="text"
-    value="{{old('name',$category->name)}}"
-    name="name" >
-    @error('name')
-    <div class="invalid-feedback">
-        {{$message}}
+    <x-form.input label="Category Name" class="form-control-lg" type="text" name="name" :value="$category->name " />
 
-    </div>
-    @enderror
 </div>
 <div class="form-group">
     <label for="">
@@ -25,31 +15,19 @@
     </select>
 </div>
 <div class="form-group">
-    <label for="">Description</label>
-    <textarea name="description" id="" class="form-control">{{old('description',$category->description)}} </textarea>
+
+    <x-form.input label="Description" type="text" name="description" :value="$category->description " role="input" />
 </div>
 <div class="form-group">
-    <label for="">Image</label>
-    <input type="file" name="image" accept="image/*" class="form-control">
-
+    <x-form.label id="image">Image</x-form.label>
+    <input type="file" name="image" id="">
 </div>
 <div class="form-group">
     <label for="">Status</label>
     <div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="status"
-                @checked(old('status',$category->status)=='active' ) value="active"
-            id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
-                Active </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="status"
-                @checked(old('status',$category->status)=='archived' )
-            value="archived" id="flexRadioDefault2">
-            <label class="form-check-label" for="flexRadioDefault2">
-                Archived </label>
-        </div>
+        <x-form.radio name="status" :checked="$category->status"
+            :options="['active' => 'Active','archived'=>'Archive']" />
+
     </div>
 </div>
 <button type="submit" class="btn btn-primary">

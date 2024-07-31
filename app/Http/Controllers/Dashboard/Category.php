@@ -39,6 +39,7 @@ class Category extends Controller
      */
     public function store(Request $request)
     {
+        // $request->validate(modelCategory::rules());
         $request->validate(modelCategory::rules(),[
             'required' => 'this field (:attribute) is required',
             'unique' => 'this is name already exist'
@@ -49,7 +50,8 @@ class Category extends Controller
             // if i did this i will apply it just to name field 
         $request->merge([
             'slug' => Str::slug($request->post('name'))
-        ]);
+        ]); 
+
         $data = $request->except('image');
         $data['image'] = $this->uploadImage($request);
        
