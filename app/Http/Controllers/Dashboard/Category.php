@@ -19,7 +19,15 @@ class Category extends Controller
      */
     public function index()
     {
-        $categories=modelCategory::all();
+        $request = request();
+       
+
+        $categories=modelCategory::leftJoin('categories as parents', 'parents.id','=','categories.parent_id')
+        ->select([
+            'categories.*',
+            'parents.name as parent_name'
+        ])
+        ->filter($request->query())->paginate();
         return view('dashboard.categories.index',compact('categories'));
     }
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Rules\Filter;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
@@ -40,4 +41,21 @@ class Category extends Model
         'status'=> 'in:active,archived'
     ];
     }
+
+    public function scopeFilter(Builder $builder, $filters){
+        $builder->when($filters['name'] ?? false ,function($builder,$value){
+            $builder->where('categories.name' ,'Like',"%{$value}%");
+        });
+        $builder->when($filters['status'] ?? false ,function($builder,$value){
+            $builder->where('categories.status' ,'=',$value);
+        });
+        // if ($filters['name'] ?? false) {
+        //     $builder->where('name' ,'Like',"%{$filters['name']}%");
+        // };
+        // if ($filters['status'] ?? false) {
+        //     $builder->where('status' ,'=',$filters['status']);
+        // };
+    
+}
+// scope function begin with scope word 
 }
