@@ -144,4 +144,20 @@ class Category extends Controller
                     ]);
                     return $path;
     }
+    public function trash(){
+        $categories = modelCategory::onlyTrashed()->paginate();
+        return view('dashboard.categories.trash',compact('categories'));
+    }
+    public function restore(Request $request,$id){
+        $category = modelCategory::onlyTrashed()->findOrFail($id);
+        $category->restore();
+        return redirect()->route('dashboard.categories.trash')
+        ->with('success',"Category restored");
+    }
+    public function forceDelete($id){
+        $category = modelCategory::onlyTrashed()->findOrFail($id);
+        $category->forceDelete();
+        return redirect()->route('dashboard.categories.trash')
+        ->with('success',"Category deleted forever");
+    }
 }

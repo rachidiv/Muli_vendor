@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\Category as CategoriesController;
+use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 Route::group([
@@ -11,8 +12,12 @@ Route::group([
 ],function(){
     Route::get('/', [DashboardController::class, 'index'])
     ->name('dashboard');
-
+    Route::put('/categories/{category}/restore',[CategoriesController::class,'restore'])->name('categories.restore');
+    Route::get('/categories/trash',[CategoriesController::class,'trash'])->name('categories.trash');
+    Route::delete('/categories/{category}/forceDelete',[CategoriesController::class,'forceDelete'])->name('categories.forceDelete');
     Route::resource('/categories',CategoriesController::class);
+    Route::resource('/products',ProductController::class);
+
 });
 
 
