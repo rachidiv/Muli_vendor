@@ -24,5 +24,11 @@ class Product extends Model
     protected static function booted(){
         static::addGlobalScope('store',new StoreScope());
     }
+    public function category(){
+        return $this->belongsTo(category::class,'category_id','id');
+    }
+    public function store(){
+        return $this->belongsTo(Store::class,'store_id','id');
+    }
     // we give our globalScope the name store 
 }

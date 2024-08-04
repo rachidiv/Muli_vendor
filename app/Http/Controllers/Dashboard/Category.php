@@ -22,10 +22,16 @@ class Category extends Controller
         $request = request();
        
 
-        $categories=modelCategory::leftJoin('categories as parents', 'parents.id','=','categories.parent_id')
-        ->select([
-            'categories.*',
-            'parents.name as parent_name'
+        $categories=modelCategory::with('parent')
+        // leftJoin('categories as parents', 'parents.id','=','categories.parent_id')
+        // ->select([
+        //     'categories.*',
+        //     'parents.name as parent_name'
+        // ])
+        ->withCount([
+            'products' => function($query){
+                $query -> where('status' ,'=','active');
+            }
         ])
         ->filter($request->query())->paginate();
         return view('dashboard.categories.index',compact('categories'));
@@ -70,9 +76,11 @@ class Category extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(modelCategory $category)
     {
-        //
+        $products = $category->products()->paginate(); 
+
+        return view('dashboard.categories.show',compact('category','products'));
     }
 
     /**

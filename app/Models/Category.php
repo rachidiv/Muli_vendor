@@ -42,6 +42,7 @@ class Category extends Model
         'status'=> 'in:active,archived'
     ];
     }
+// scope function begin with scope word 
 
     public function scopeFilter(Builder $builder, $filters){
         $builder->when($filters['name'] ?? false ,function($builder,$value){
@@ -58,5 +59,16 @@ class Category extends Model
         // };
     
 }
-// scope function begin with scope word 
+public function products(){
+    return $this->hasMany(Product::class,'category_id','id');
+}
+public function parent(){
+    return $this->belongsTo(Category::class,'parent_id','id')
+    ->withDefault([
+        'name' => 'Main Category'
+    ]);
+}
+public function children(){
+    return $this->hasMany(Category::class,'parent_id','id');
+}
 }
