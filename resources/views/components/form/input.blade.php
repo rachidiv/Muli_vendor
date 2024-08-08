@@ -1,5 +1,5 @@
 @props([
-'type','name'=>'', 'value'=>'','label' => false
+'type'=>'text','name'=>'', 'value'=>'','label' => false
 ])
 <!-- we define attribute which input expect  -->
 @if($label)
@@ -7,7 +7,7 @@
     {{$label}}
 </label>
 @endif
-<input type="{{$type}} " value="{{old($name,$value)}}" name="{{$name}}" {{
+<input type="{{$type}}" value="{{old($name,$value)}}" name="{{$name}}" {{
     $attributes->class([
         'form-control',
         'is-invalid' => $errors->has($name)

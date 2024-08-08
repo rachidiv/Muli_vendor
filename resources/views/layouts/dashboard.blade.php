@@ -17,7 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
-    <!-- @stack('styles') -->
+    @stack('styles')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -184,7 +184,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{Auth::user()->name}} </a>
+                        <a href="{{route('dashboard.profile.edit')}}" class="d-block">{{Auth::user()->name}} </a>
                     </div>
                 </div>
 
@@ -257,7 +257,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
-    <!-- @stack('scripts') -->
+    @stack('scripts')
 </body>
 
 </html>

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Helpers\Currency;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
@@ -13,9 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+       
     }
-
     /**
      * Bootstrap any application services.
      */

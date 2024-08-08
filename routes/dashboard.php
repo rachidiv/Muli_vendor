@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\Category as CategoriesController;
 use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\Dashboard\Profile;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 Route::group([
@@ -12,6 +13,8 @@ Route::group([
 ],function(){
     Route::get('/', [DashboardController::class, 'index'])
     ->name('dashboard');
+    Route::get('profile',[Profile::class,'edit'])->name('profile.edit');
+    Route::patch('profile',[Profile::class,'update'])->name('profile.update');
     Route::put('/categories/{category}/restore',[CategoriesController::class,'restore'])->name('categories.restore');
     Route::get('/categories/trash',[CategoriesController::class,'trash'])->name('categories.trash');
     Route::delete('/categories/{category}/forceDelete',[CategoriesController::class,'forceDelete'])->name('categories.forceDelete');
