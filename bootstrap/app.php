@@ -11,7 +11,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias(['auth.type' => App\Http\Middleware\CheckUser::class]);
+        $middleware->appendToGroup('web',App\Http\Middleware\UpdateUserLastActiveAt::class);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

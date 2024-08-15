@@ -1,5 +1,5 @@
 @props([
-'value','selected','name','options','label'
+'value','selected'=>'','name','options','label'=>false
 ])
 @if($label)
 <label for="">

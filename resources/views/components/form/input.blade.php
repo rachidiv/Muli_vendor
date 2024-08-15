@@ -1,5 +1,5 @@
 @props([
-'type'=>'text','name'=>'', 'value'=>'','label' => false
+'type'=>'text','name'=>'', 'value'=>'','label' => false,
 ])
 <!-- we define attribute which input expect  -->
 @if($label)
