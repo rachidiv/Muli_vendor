@@ -21,8 +21,10 @@ class DeductProductQuantity
     /**
      * Handle the event.
      */
-    public function handle($order): void
+    public function handle(...$orders): void
     {
+        // dd($orders);
+
         // foreach(Cart::get() as $item){
         //     Product::where('id','=',$item->product_id)
         //     ->update([
@@ -30,8 +32,11 @@ class DeductProductQuantity
         //     ]);
 
         // }
-        foreach($order->products as $product){
-            $product->decrement('quantity',$product->pivot->quantity);
+        foreach($orders as $order){
+            foreach($order->products as $product){
+                $product->decrement('quantity',$product->pivot->quantity);
+            }
         }
+        
     }
 }
