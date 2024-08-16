@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-    public $timestamps = false;
     protected $fillable = [
         'store_id' , 'user_id' ,'payment_method','status','payment_status'
     ];
@@ -23,6 +22,7 @@ class Order extends Model
     }
     public function products(){
         return $this->belongsToMany(Product::class,'order_items','order_id','product_id','id','id')
+        ->using(OrderItem::class)
         ->withPivot([
             'product_name','price','quantity','options'
         ]);
@@ -47,7 +47,7 @@ class Order extends Model
     public static function getNextOrderNumber(){
         $year = Carbon::now()->year;
         $number = Order::whereYear('created_at',$year)->max('number');
-        if(!$number){
+        if($number){
             return $number + 1;
         }
         return $year . '0001';

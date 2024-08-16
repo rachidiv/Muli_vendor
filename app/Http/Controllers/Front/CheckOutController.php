@@ -52,10 +52,10 @@ class CheckOutController extends Controller
                 $address['type'] = $type;
                 $order->addresses()->create($address);
             }
-            $cart->empty();
 
         }
         DB::commit();
+        event('order.created',$order);
        }catch(Throwable $e){
         DB::rollBack();
         throw $e;
