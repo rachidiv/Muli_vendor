@@ -15,11 +15,11 @@ class SeederUser extends Seeder
     public function run(): void
     {
         User::create([
-            'name' => 'user1',
-            'email' => 'user1@gmail.com',
+            'name' => 'user2',
+            'email' => 'user2@gmail.com',
             'password' => Hash::make('0000'),
-            'phone_number' => '0624020081',
-            'store_id' => '1'
+            'phone_number' => '0624020080',
+            'store_id' => '2'
         ]);
     }
 }

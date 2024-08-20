@@ -18,7 +18,7 @@ class Profile extends Controller
             'countries'=>Countries::getNames(),
             'locales' => Languages::getNames(),
         ]);
-        dd(Countries::getNames());
+        // dd(Countries::getNames());
     }
     public function update(Request $request){
         $request->validate([

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Helpers\Currency;
 use App\Listeners\DeductProductQuantity;
 use App\Listeners\EmptyCart;
+use App\Listeners\sendOrderCreatedNotification;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Validator;
@@ -38,8 +39,9 @@ class AppServiceProvider extends ServiceProvider
         },'the value is forbidden');
 
       Paginator::useBootstrap();  
-      Event::listen('order.created', [DeductProductQuantity::class, 'handle']);
-      Event::listen('order.created', [EmptyCart::class, 'handle']);
+      // Event::listen('order.created', [DeductProductQuantity::class, 'handle']);
+      // Event::listen('order.created', [EmptyCart::class, 'handle']);
+      Event::listen('order.created', [sendOrderCreatedNotification::class, 'handle']);
       
       // Event::listen(
       //   'order.created',
