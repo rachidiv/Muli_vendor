@@ -47,7 +47,7 @@
     <header class="header navbar-area">
         <!-- Start Topbar -->
         <div class="topbar">
-            <div class="container">
+            <div class="container ">
                 <div class="row align-items-center">
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-left">
@@ -91,18 +91,37 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
+                            @auth('web')
+                            <div class="user">
+                                <i class="lni lni-user"></i>
+                                {{Auth::user()->name}}
+                            </div>
+                            <ul class="user-login">
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout').submit()">Sign
+                                        Out</a>
+                                </li>
+                                <form action="{{ route('logout') }}" id="logout" method="post" style="display:none">
+                                    @csrf
+                                </form>
+                            </ul>
+                            @else
                             <div class="user">
                                 <i class="lni lni-user"></i>
                                 Hello
                             </div>
                             <ul class="user-login">
                                 <li>
-                                    <a href="login.html">Sign In</a>
+                                    <a href="{{ route('login') }}">Sign in</a>
                                 </li>
                                 <li>
-                                    <a href="register.html">Register</a>
+                                    <a href="{{ route('register') }}">Sign in</a>
                                 </li>
+
                             </ul>
+                            @endauth
+
                         </div>
                     </div>
                 </div>

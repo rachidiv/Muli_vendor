@@ -6,9 +6,11 @@ use App\Http\Controllers\Dashboard\Profile;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 Route::group([
-    'middleware' => ['auth','auth.type:user,super-admin'],
+    // 'middleware' => ['auth','auth.type:user,super-admin'],
+    'middleware' => ['auth:admin'],
+    // in dashboard we use admin guard 
     'as' => 'dashboard.',
-    'prefix' => 'dashboard',
+    'prefix' => 'admin/dashboard',
     // 'namespace' => 'App\Http\Controller'
 ],function(){
     Route::get('/', [DashboardController::class, 'index'])

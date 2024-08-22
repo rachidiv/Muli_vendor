@@ -793,7 +793,7 @@
         }
     });
     </script>
-    <script>
+    <!-- <script>
     const finaleDate = new Date("February 15, 2023 00:00:00").getTime();
 
     const timer = () => {
@@ -823,6 +823,6 @@
     }
     timer();
     setInterval(timer, 1000);
-    </script>
+    </script> -->
     @endpush
 </x-front-layout>
