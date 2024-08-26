@@ -6,10 +6,12 @@ use App\Helpers\Currency;
 use App\Listeners\DeductProductQuantity;
 use App\Listeners\EmptyCart;
 use App\Listeners\sendOrderCreatedNotification;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+      // JsonResource::withoutWrapping();
         validator::extend('filter',function($attribute,$value,$params){
             return ! in_array(strtolower($value),$params);
             

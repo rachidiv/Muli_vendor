@@ -27,7 +27,8 @@
                 <li><span>5.0 Review(s)</span></li>
             </ul>
             <div class="price">
-                <span>{{$product->price}}$</span>
+                <!-- <span>{{$product->price}}$</span> -->
+                <span>{{App\Helpers\Currency::format($product->price)}}</span>
             </div>
         </div>
     </div>

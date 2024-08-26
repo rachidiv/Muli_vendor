@@ -31,7 +31,7 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
-
+    'currency' => 'USD',
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode

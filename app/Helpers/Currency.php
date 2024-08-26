@@ -1,6 +1,10 @@
 <?php
 namespace App\Helpers;
-use NumberFormatter;
+
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Number;
+// use NumberFormatter;
 class Currency
 {
     public function __invoke(...$params)
@@ -8,10 +12,16 @@ class Currency
         return static::format(...$params);
     }
 public static function format($amount,$currency = null){
-$formatter = new NumberFormatter(config('app.locale'),NumberFormatter::CURRENCY);
+    $baseCurrency = config('app.currency');
 if($currency === null){
-$currency = 'usd';
+
+$currency = Session::get('currency_code',$baseCurrency);
 }
-return $formatter->formatCurrency($amount,$currency);
+if($currency !== $baseCurrency){
+    $rate = Cache::get('currency_rate_' . $currency,1);
+    $amount = ($amount * $rate);
+}
+
+return $price = Number::currency($amount,in:$currency,locale:config('app.locale'));
 }
 }

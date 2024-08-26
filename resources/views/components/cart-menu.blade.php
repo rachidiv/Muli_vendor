@@ -28,6 +28,7 @@
         <div class="total">
             <span>Total</span>
             <span class="total-amount">{{App\Helpers\Currency::format($total)}} </span>
+
         </div>
         <div class="button">
             <a href="checkout.html" class="btn animate">Checkout</a>
