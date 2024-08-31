@@ -8,7 +8,9 @@ use App\Listeners\EmptyCart;
 use App\Listeners\sendOrderCreatedNotification;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -51,5 +53,19 @@ class AppServiceProvider extends ServiceProvider
       //   DeductProductQuantity::class,
       //   EmptyCart::class
       // );
+      // dd(config('abilities'));
+      Gate::before(function($user,$ability){
+        if($user->super_admin){
+          return true;
+        }
+      });
+      foreach(config('abilities') as $code => $lable){
+        Gate::define($code,function($user) use ($code){
+          // dd($code);
+          // dd($user->hasAbility($code));
+          return $user->hasAbility($code);
+        });
+      }
+      
     }
 }

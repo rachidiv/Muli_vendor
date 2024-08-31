@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\adminsController;
+use App\Http\Controllers\Dashboard\AdminsController as DashboardAdminsController;
 use App\Http\Controllers\Dashboard\Category as CategoriesController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\Profile;
+use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 Route::group([
@@ -22,6 +25,8 @@ Route::group([
     Route::delete('/categories/{category}/forceDelete',[CategoriesController::class,'forceDelete'])->name('categories.forceDelete');
     Route::resource('/categories',CategoriesController::class);
     Route::resource('/products',ProductController::class);
+    Route::resource('/roles',RolesController::class);
+    Route::resource('/admins',DashboardAdminsController::class);
 
 });
 

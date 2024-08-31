@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias(['auth.type' => App\Http\Middleware\CheckUser::class]);
         $middleware->appendToGroup('web',App\Http\Middleware\UpdateUserLastActiveAt::class);
         $middleware->appendToGroup('web',App\Http\Middleware\MarkNotificationAsRead::class);
+        $middleware->appendToGroup('web',App\Http\Middleware\SetAppLocale::class);
 
     })
     ->withExceptions(function (Exceptions $exceptions) {

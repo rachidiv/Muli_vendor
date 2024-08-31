@@ -7,6 +7,7 @@ use App\Http\Requests\CategoryRequest;
 use App\Models\Category as modelCategory;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -134,6 +135,7 @@ class Category extends Controller
     public function destroy(string $id)
     {
         // modelCategory::destroy($id);
+        Gate::authorize('categories.delete');
         $category = modelCategory::findOrFail($id);
         $category->delete();
        if ($category->image) {
